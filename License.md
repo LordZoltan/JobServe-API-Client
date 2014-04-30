@@ -1,4 +1,4 @@
-This source code is copyright 2013 Andras Zoltan
+This source code is copyright Andras Zoltan
 -
 
 Licensed under the Apache License, Version 2.0 (the "License");

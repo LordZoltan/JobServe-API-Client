@@ -1,13 +1,20 @@
 JobServe API Client
 ===================
 
-Unofficial (but since I work for JobServe, it's as good as official) .Net client to access [the JobServe API](http://services.jobserve.com).
+Portable .Net Client to access [the JobServe API](http://services.jobserve.com).
+
+The library is neither produced by, officially endorsed by, or in any way supported by JobServe Ltd.
+
+I created this because I work for JobServe, I worked on the API, and I wanted to help people consume it.
+
+See [the Version History](VersionHistory.md) for detailed information on how this client has evolbved over time.
 
 Notes
 -
 
-See the unit tests project for a couple of examples of how to use the client.  In it's current form, 
-you will need VS2012 to be able to compile the code straight off, as it uses the async/await keywords.
+See the unit tests project for a couple of examples of how to use the WebRequestManager class to access the API directly.
+
+Also, there is now a Client that provides more structured access to the API by hiding the underlying HTTP work.
 
 Want your own access token?
 -
@@ -16,11 +23,9 @@ The client code has a default API token that is used if no other token is provid
 to use this token, you can also head on over to the [Request Access page on the JobServe API website](https://services.jobserve.com/Developers/register)
 to get your own token.  You should definitely do this if you are developing your own application or website.
 
-This is a work in progress
+Finally
 -
 
-This is currently a work in progress initially to answer a support question from a user that registered for access and then asked for some example code.
+This is created initially to answer a support question from a user that registered for access and then asked for some example code.
 
-Over time I hope to expand the solution to cover other flavours of .Net, and as the basis for a nuget package.
-
-In the meantime, I will also accept pull requests for any urgent issues.
+I encourage you to fork the library at your leisure, or use it as-is, I will also accept pull requests for any urgent issues.

@@ -3,10 +3,10 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace JobServe.API.Client.Tests
+namespace JobServe.API.Tests
 {
 	[TestClass]
-	public class BasicClientTests
+	public class WebRequestManagerTests
 	{
 		//this is by no means meant to be an exahustive test of all the features of the API,
 		//just a couple of examples of how to use it.
@@ -21,7 +21,7 @@ namespace JobServe.API.Client.Tests
 		[TestMethod]
 		public async Task ShouldGetVersion()
 		{
-			var client = new JobServeAPIClient();
+			var client = new WebRequestManager();
 			
 			//best practise is to switch off compression for operations returning small amounts of data.
 			var result = await client.Get<WebServiceVersionInfo>("version", enableCompression: false);
@@ -36,7 +36,7 @@ namespace JobServe.API.Client.Tests
 			//note that in production code you should get the default once, then clone it for re-use.
 			//a simple way of doing that is to serialize it and deserialize it again using the 
 			//DataContractSerializer (see the client's Send method and private Deserialize method)
-			var client = new JobServeAPIClient();
+			var client = new WebRequestManager();
 			var defaultSearch = await client.Get<JobSearch>("jobsearchdefaults");
 
 			/* location notes */

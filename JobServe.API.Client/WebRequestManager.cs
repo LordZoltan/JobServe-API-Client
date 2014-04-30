@@ -1,4 +1,11 @@
-﻿using System;
+﻿/// JobServe Jobs API Client - for the Jobs API at http://services.jobserve.com
+/// 
+/// Copyright Andras Zoltan (https://github.com/LordZoltan) 2013 onwards
+/// 
+/// You are free to use code, clone it, alter it at will.  But please give me credit if you are incorporating
+/// this code into a public repo.
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -12,11 +19,18 @@ using System.Threading.Tasks;
 namespace JobServe.API
 {
 	/// <summary>
-	/// A basic client for the JobServe API.
+	/// Renamed from JobserveAPIClient.
+	/// 
+	/// This performs get/post requests to the API endpoints, and can be used as the client
+	/// underpinning all the service objects.
 	/// </summary>
-	public class JobServeAPIClient
+	public class WebRequestManager : IWebRequestManager
 	{
-		private const string DefaultToken = "6t6eXsLhq8JuESV3ZjXUQCdUzxzcpM3r3kZif239d-85w2Abc-avgvmelgAouveRxGouN6Yx-fAmVfT54d-MYsw5ohP_tqC-uIrQviJY8X8vRx_0Do4AfDdqaYVJCRYqiv2MQVTlB9aEX6z7r748QMYRWynYAZF8Y6Xd3hEYzQU";
+		/// <summary>
+		/// This is a special generically public token for this library.  
+		/// We recommend you request your own at https://services.jobserve.com/Developers/Register.
+		/// </summary>
+		public const string DefaultToken = "6t6eXsLhq8JuESV3ZjXUQCdUzxzcpM3r3kZif239d-85w2Abc-avgvmelgAouveRxGouN6Yx-fAmVfT54d-MYsw5ohP_tqC-uIrQviJY8X8vRx_0Do4AfDdqaYVJCRYqiv2MQVTlB9aEX6z7r748QMYRWynYAZF8Y6Xd3hEYzQU";
 		/// <summary>
 		/// constant for the hostname to use on all API requests
 		/// </summary>
@@ -33,7 +47,7 @@ namespace JobServe.API
 		/// </summary>
 		/// <param name="apiToken">Required. The API token you've been issued with after requesting access
 		/// at https://services.jobserve.com/Developers/Register.</param>
-		public JobServeAPIClient(string apiToken = DefaultToken)
+		public WebRequestManager(string apiToken = DefaultToken)
 		{
 			if (apiToken == null)
 				throw new ArgumentNullException("apiToken");
@@ -106,7 +120,7 @@ namespace JobServe.API
 		/// <param name="enableCompression"></param>
 		/// <param name="secure"></param>
 		/// <returns></returns>
-		public async Task<TResponse> Get<TResponse>(string relativePathAndQuery, bool enableCompression = true, bool secure = false)
+		public virtual async Task<TResponse> Get<TResponse>(string relativePathAndQuery, bool enableCompression = true, bool secure = false)
 		{
 			//TODO: add parameter validation
 			HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, MakeRequestURI(secure, relativePathAndQuery));
@@ -135,7 +149,7 @@ namespace JobServe.API
 		/// <param name="enableCompression"></param>
 		/// <param name="secure"></param>
 		/// <returns></returns>
-		public async Task<TResponse> Send<TContent, TResponse>(string relativePathAndQuery, HttpMethod method, TContent content, bool enableCompression = true, bool secure = false)
+		public virtual async Task<TResponse> Send<TContent, TResponse>(string relativePathAndQuery, HttpMethod method, TContent content, bool enableCompression = true, bool secure = false)
 		{
 			//TODO: add parameter validation
 			if (method.Equals(HttpMethod.Get) || method.Equals(HttpMethod.Head) || method.Equals(HttpMethod.Options))
@@ -166,8 +180,16 @@ namespace JobServe.API
 					response = await client.SendAsync(request);
 				}
 
+				response.EnsureSuccessStatusCode();
+
 				return await Deserialize<TResponse>(response);
 			}
 		}
+	}
+
+	[Obsolete("Please change any references of this class to 'WebRequestManager'.  Better still, use the Client class.", true)]
+	public class JobServeAPIClient : WebRequestManager
+	{
+		//all methods elided - simply change any code references as per the obsolete message and old code will continue to work.
 	}
 }
