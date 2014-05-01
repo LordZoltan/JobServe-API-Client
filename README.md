@@ -1,11 +1,11 @@
-JobServe API Client
+JobServe Jobs API Client
 ===================
 
-Portable .Net Client to access [the JobServe API](http://services.jobserve.com).
+Portable .Net Client to access [the JobServe Jobs API](http://services.jobserve.com).
 
 The library is neither produced by, officially endorsed by, or in any way supported by JobServe Ltd.
 
-I created this because I work for JobServe, I worked on the API, and I wanted to help people consume it.
+I created this because I worked on the API, and I wanted to help people consume it.
 
 See [the Version History](VersionHistory.md) for detailed information on how this client has evolbved over time.
 
@@ -15,6 +15,8 @@ Notes
 See the unit tests project for a couple of examples of how to use the WebRequestManager class to access the API directly.
 
 Also, there is now a Client that provides more structured access to the API by hiding the underlying HTTP work.
+
+I've also added a service abstraction layer, designed to run over the top of the client, to make accessing the service even easier.
 
 Want your own access token?
 -
