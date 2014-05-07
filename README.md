@@ -9,6 +9,9 @@ I created this because I worked on the API, and I wanted to help people consume 
 
 See [the Version History](VersionHistory.md) for detailed information on how this client has evolbved over time.
 
+Take a look at the [ClientTests.cs](JobServe.API.Client.Tests/ClientTests.cs) unit test for a few examples of how to use the client.  You'll also find some other tests of the service-oriented types as well in the same project.
+
+
 Notes
 -
 
